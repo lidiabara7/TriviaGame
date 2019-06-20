@@ -1,12 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Trivia Game</title>
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
+
 <body>
-    
+    <h>Trivia Game</h>
+    <button id="startGame"> Click to Start Playing</button>
+
+    <div id="question"></div>
+
+    <button id="choices"></button>
+   
+
+    <div id="display-results"></div>
+
+    <div id="timer"></div>
+
+    <script>
+     //need quetions and need answers
+
+        var questions = [
+            {
+                question: "What color is the sky?",
+                choice: ["A. Blue","B. Purple","C. Orange"],
+                correct: "A. Blue"
+            },
+            {
+                question: "What color is the ocean?",
+                choices: ["A. Blue", "B. Purple","C. Orange"],
+                correct: "A. Blue"
+            },
+            {
+                question: "What color are trees?",
+                choices: ["A. Blue","B. Purple","C. Green"],
+                correct: "C. Green"
+            }
+        ];
+//need to create a variable to keep track of the answers correct
+var score = 0;
+var WrongAnswers = 0;
+var timeleft = 20;
+ var intervalId;
+//need to set the timer to start once the start button is pressed
+//need to create an event function to start the game 
+
+$("#startGame").on("click", function(){
+intervalId = setTimeout( decrement, 1000);
+clearInterval(intervalId);
+})
+
+function decrement(){
+    timeleft-- ;
+$("#timer").html("<h2>"+ timeleft +"</h2>");
+if (timeleft < 0){
+    stop();
+    alert("You're out of time!" + "correct answers =" + score +""+ "Incorrect answers=" + ""+ WrongAnswers);
+}  
+
+}
+//need to create a function so that the questions and the answers are dispayed
+for (i= 0; i < questions.length; i++){
+    console.log(questions[i].question)
+    var questionDisplay = ("<div>")
+$("#question").append(questions[i].question);
+var choicesDisplay = ("<div>") 
+ $("#choices").append(questions[i].choices);
+ 
+}
+console.log(questions[i].correct)
+ //how does it know when the answer is rigth or not
+$("#choices").on("click", function () {
+var userInput = event.click
+if (userInput === questions[i].correct){
+    score++
+}
+else{
+WrongAnswers++
+}
+})
+
+//need to make i so that they can oly select one answer
+
+
+    </script>
 </body>
+
 </html>
