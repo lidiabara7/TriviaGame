@@ -98,18 +98,14 @@ function renderQuestions(questions) {
 }
 //=============================================
 $(document).ready(function () {
-
+    $("#second-page").hide()
     renderQuestions(questions);
 
     $("#timer").html("<h2>" + timeleft + "</h2>");
     $("#startGame").on("click", function () {
         timeRun();
-
+    $("#second-page").show()
     })
-    //=====to keep track of right/wrong answers=====
-
-
-    //need to make i so that they can oly select one answer
 
 
 });
