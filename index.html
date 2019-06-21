@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Trivia Game</title>
+    <link rel="stylesheet" type="text/css"href="assets\css\style.css">
     <script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
@@ -15,7 +16,7 @@
 
     <div id="question"></div>
 
-    <button id="choices"></button>
+    <button></button>
    
 
     <div id="display-results"></div>
@@ -28,7 +29,7 @@
         var questions = [
             {
                 question: "What color is the sky?",
-                choice: ["A. Blue","B. Purple","C. Orange"],
+                choices: ["A. Blue","B. Purple","C. Orange"],
                 correct: "A. Blue"
             },
             {
@@ -45,36 +46,75 @@
 //need to create a variable to keep track of the answers correct
 var score = 0;
 var WrongAnswers = 0;
-var timeleft = 20;
- var intervalId;
+var timeleft = 5;
+var intervalId;
 //need to set the timer to start once the start button is pressed
 //need to create an event function to start the game 
 
-$("#startGame").on("click", function(){
-intervalId = setTimeout( decrement, 1000);
-clearInterval(intervalId);
-})
+function timeRun() {
+
+    intervalId = setTimeout( decrement, 1000);
+}
 
 function decrement(){
-    timeleft-- ;
-$("#timer").html("<h2>"+ timeleft +"</h2>");
-if (timeleft < 0){
-    stop();
-    alert("You're out of time!" + "correct answers =" + score +""+ "Incorrect answers=" + ""+ WrongAnswers);
-}  
+    if (timeleft > 0) {
+        timeleft-- ;
+        $("#timer").html("<h2>"+ timeleft +"</h2>");
+        timeRun();
+    } else if (timeleft === 0) {
+        clearTimeout(intervalId);
+        alert("You're out of time!" + "correct answers =" + score +""+ "Incorrect answers=" + ""+ WrongAnswers);
 
+    } 
 }
+
+
 //need to create a function so that the questions and the answers are dispayed
-for (i= 0; i < questions.length; i++){
+function renderQuestions(questions) {
+
+    var questionDisplay = $("<div>");
+    questionDisplay.addClass('questions');
+
+    for (var i = 0; i < questions.length; i++) {
+
     console.log(questions[i].question)
-    var questionDisplay = ("<div>")
-$("#question").append(questions[i].question);
-var choicesDisplay = ("<div>") 
- $("#choices").append(questions[i].choices);
+    
+    var $h1 = $('<div>');
+        
+    $h1.text(questions[i].question);
+        // $('#question').html($h1);
+    // $('#question').html($h1);
+    for (let j = 0; j < questions[i].choices.length; j++) {
+        console.log(questions[i].choices[j]);
+        var $p = $("<p>");
+        $p.text(questions[i].choices[j]);
+        $h1.append($p);
+
+    }
+    // $('#question').html($h1)
+    questionDisplay.append($h1);
+    $('#question').append(questionDisplay)
+
+// $("#question").append(questions[i].question);
+// var choicesDisplay = ("<div>") 
+//  $("#choices").append(questions[i].choices);
  
+    }
 }
-console.log(questions[i].correct)
- //how does it know when the answer is rigth or not
+
+$(document).ready(function() {
+
+    renderQuestions(questions);
+
+    $("#timer").html("<h2>"+ timeleft +"</h2>");
+    $("#startGame").on("click", function() {
+        timeRun();
+
+    })
+
+// console.log(questions[i].correct)
+
+//do something so that it knows when the answer is rigth or not
 $("#choices").on("click", function () {
 var userInput = event.click
 if (userInput === questions[i].correct){
@@ -87,6 +127,8 @@ WrongAnswers++
 
 //need to make i so that they can oly select one answer
 
+
+});
 
     </script>
 </body>
