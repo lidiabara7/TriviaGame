@@ -6,131 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Trivia Game</title>
-    <link rel="stylesheet" type="text/css"href="assets\css\style.css">
-    <script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets\css\style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src= "C:\Users\lidia\Desktop\hwcw\hw\TriviaGame\assets\javascript\app.js"></script>
 </head>
 
 <body>
+        
     <h>Trivia Game</h>
+    <br><br>
+   
     <button id="startGame"> Click to Start Playing</button>
+
+    <p>You will have a limited amount of time to finish the quiz. 
+    The game ends when the time runs out or when you finish answering the questions. </p>
 
     <div id="question"></div>
 
-    <button></button>
-   
+    <button class=btn></button>
 
     <div id="display-results"></div>
 
-    <div id="timer"></div>
+    <div id="timer"></div>                
 
-    <script>
-     //need quetions and need answers
-
-        var questions = [
-            {
-                question: "What color is the sky?",
-                choices: ["A. Blue","B. Purple","C. Orange"],
-                correct: "A. Blue"
-            },
-            {
-                question: "What color is the ocean?",
-                choices: ["A. Blue", "B. Purple","C. Orange"],
-                correct: "A. Blue"
-            },
-            {
-                question: "What color are trees?",
-                choices: ["A. Blue","B. Purple","C. Green"],
-                correct: "C. Green"
-            }
-        ];
-//need to create a variable to keep track of the answers correct
-var score = 0;
-var WrongAnswers = 0;
-var timeleft = 5;
-var intervalId;
-//need to set the timer to start once the start button is pressed
-//need to create an event function to start the game 
-
-function timeRun() {
-
-    intervalId = setTimeout( decrement, 1000);
-}
-
-function decrement(){
-    if (timeleft > 0) {
-        timeleft-- ;
-        $("#timer").html("<h2>"+ timeleft +"</h2>");
-        timeRun();
-    } else if (timeleft === 0) {
-        clearTimeout(intervalId);
-        alert("You're out of time!" + "correct answers =" + score +""+ "Incorrect answers=" + ""+ WrongAnswers);
-
-    } 
-}
-
-
-//need to create a function so that the questions and the answers are dispayed
-function renderQuestions(questions) {
-
-    var questionDisplay = $("<div>");
-    questionDisplay.addClass('questions');
-
-    for (var i = 0; i < questions.length; i++) {
-
-    console.log(questions[i].question)
-    
-    var $h1 = $('<div>');
-        
-    $h1.text(questions[i].question);
-        // $('#question').html($h1);
-    // $('#question').html($h1);
-    for (let j = 0; j < questions[i].choices.length; j++) {
-        console.log(questions[i].choices[j]);
-        var $p = $("<p>");
-        $p.text(questions[i].choices[j]);
-        $h1.append($p);
-
-    }
-    // $('#question').html($h1)
-    questionDisplay.append($h1);
-    $('#question').append(questionDisplay)
-
-// $("#question").append(questions[i].question);
-// var choicesDisplay = ("<div>") 
-//  $("#choices").append(questions[i].choices);
- 
-    }
-}
-
-$(document).ready(function() {
-
-    renderQuestions(questions);
-
-    $("#timer").html("<h2>"+ timeleft +"</h2>");
-    $("#startGame").on("click", function() {
-        timeRun();
-
-    })
-
-// console.log(questions[i].correct)
-
-//do something so that it knows when the answer is rigth or not
-$("#choices").on("click", function () {
-var userInput = event.click
-if (userInput === questions[i].correct){
-    score++
-}
-else{
-WrongAnswers++
-}
-})
-
-//need to make i so that they can oly select one answer
-
-
-});
-
-    </script>
-</body>
+   </body>
 
 </html>

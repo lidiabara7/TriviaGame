@@ -1,10 +1,108 @@
-You'll create a trivia form with multiple choice or true/false options (your choice).
+    //need quetions and need answers
 
-* The player will have a limited amount of time to finish the quiz. 
+    var questions = [
+        {
+            question: "What color is the sky?",
+            choices: ["A. Blue", "B. Purple", "C. Orange"],
+            correct: "A. Blue"
+        },
+        {
+            question: "What color is the ocean?",
+            choices: ["A. Blue", "B. Purple", "C. Orange"],
+            correct: "A. Blue"
+        },
+        {
+            question: "What color are trees?",
+            choices: ["A. Blue", "B. Purple", "C. Green"],
+            correct: "C. Green"
+        }
+    ];
+    //need to create a variable to keep track of the answers correct
+    var score = 0;
+    var WrongAnswers = 0;
+    var timeleft = 5;
+    var intervalId;
 
-  * The game ends when the time runs out. The page will reveal the number of questions that players answer correctly and incorrectly.
+    //need to set the timer to start once the start button is pressed
+    //need to create an event function to start the game 
+    function timeRun() {
 
-* Don't let the player pick more than one answer per question.
+        intervalId = setTimeout(decrement, 1000);
+    }
 
-* Don't forget to include a countdown timer.
+    function decrement() {
+        if (timeleft > 0) {
+            timeleft--;
+            $("#timer").html("<h2>" + timeleft + "</h2>");
+            timeRun();
+        } else if (timeleft === 0) {
+            clearTimeout(intervalId);
+            alert("You're out of time!" + "correct answers =" + score + "" + "Incorrect answers=" + "" + WrongAnswers);
 
+        }
+    }
+
+    //need to create a function so that the questions and the answers are dispayed
+    function renderQuestions(questions) {
+
+        var questionDisplay = $("<div>");
+        questionDisplay.addClass('questions');
+
+        for (var i = 0; i < questions.length; i++) {
+
+            console.log(questions[i].question)
+            // =====================================for the answers
+
+            var $h1 = $('<div>');
+
+            $h1.text(questions[i].question);
+
+            for (var j = 0; j < questions[i].choices.length; j++) {
+                console.log(questions[i].choices[j]);
+                var $p = $("<p>");
+                $p.text(questions[i].choices[j]);
+                $h1.append($p);
+            // ===================================for the button 
+                var btnInput = $("<input>");
+                btnInput.attr('type', 'radio');
+                btnInput.attr('name', questions[i].choices[j]);
+                $p.prepend(btnInput);
+            }
+
+            questionDisplay.append($h1);
+            $('#question').append(questionDisplay);
+
+            questionDisplay.append($h1);
+            $('#question').append(questionDisplay);
+
+            for (var c = 0; c < questions[i].correct.length; c++) {
+            console.log(questions[i].correct[c]);
+            }
+            }
+    }
+    //=============================================
+    $(document).ready(function () {
+
+        renderQuestions(questions);
+
+        $("#timer").html("<h2>" + timeleft + "</h2>");
+        $("#startGame").on("click", function () {
+            timeRun();
+
+        })
+    //=====to keep track of right/wrong answers=====
+
+        $("<input>").on("click", function () {
+            var userInput = event.click
+            if (userInput === questions[i].correct[i]) {
+                score++ 
+            }
+            else {
+                WrongAnswers++
+            }
+        })
+
+        //need to make i so that they can oly select one answer
+
+
+    });
