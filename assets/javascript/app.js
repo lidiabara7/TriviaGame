@@ -33,11 +33,11 @@ function timeRun() {
 function decrement() {
     if (timeleft > 0) {
         timeleft--;
-        $("#timer").html("<h2>" + timeleft + "</h2>");
+        $("#timer").html("<h2>" + "Time Left: " + timeleft + "</h2>");
         timeRun();
     } else if (timeleft === 0) {
         clearTimeout(intervalId);
-        alert("You're out of time!" + "correct answers =" + score + "" + "Incorrect answers=" + "" + WrongAnswers);
+        alert("You're out of time! " + "correct answers = " + score + " " + "Incorrect answers = " + " " + WrongAnswers);
 
     }
 }
@@ -98,10 +98,10 @@ function renderQuestions(questions) {
 }
 //=============================================
 $(document).ready(function () {
-    $("#second-page").hide()
+    $("#second-page").hide();
     renderQuestions(questions);
 
-    $("#timer").html("<h2>" + timeleft + "</h2>");
+    $("#timer").html("<h2>"+ "Time Left: " + timeleft + "</h2>");
     $("#startGame").on("click", function () {
         timeRun();
     $("#second-page").show()
